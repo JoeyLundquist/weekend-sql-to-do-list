@@ -3,12 +3,15 @@ $(readyNow)
 function readyNow() {
     console.log('js')
     getTasks();
+    setUpClickListeners();
+}
+
+function setUpClickListeners() {
+    $('#submit-button').on('click', submitTask)
 }
 
 function getTasks() {
     console.log('In GET tasks')
-
-
     $.ajax({
         url:'/todo-list',
         method: 'GET'
@@ -60,4 +63,31 @@ function renderTaskList(list) {
                 `
         )
     }
+}
+
+function submitTask() {
+    let taskToSend = {
+        category: $('#category-input').val(),
+        task: $('#task-name-in').val(),
+        priority: $('#task-priority').val(),
+        dueDate: $('#due-date-in').val(),
+        notes: $('#notes-in').val()
+    }
+
+    $.ajax({
+        url:'/todo-list',
+        method: 'PUT',
+        data: taskToSend
+    })
+    .then((response) => {
+        console.log('PUT success', response);
+        getTasks();
+    })
+    .catch((err) => {
+        alert('Failed to add task');
+        console.log('PUT failed', err)
+    })
+
+
+
 }
