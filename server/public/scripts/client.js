@@ -8,6 +8,7 @@ function readyNow() {
 
 function setUpClickListeners() {
     $('#submit-button').on('click', submitTask)
+    $(document).on('click', '.delete-task-button', deleteTask)
 }
 
 function getTasks() {
@@ -36,7 +37,6 @@ function renderTaskList(list) {
         let dateCreated = new Date(task.dateCreated);
         let completed;
         let project;
-        let category;
         if(task.inProgress){
             completed = 'No'
         }
@@ -67,13 +67,13 @@ function renderTaskList(list) {
                 <td>${dueDate.toLocaleDateString()}</td>
                 <td>${dateCreated.toLocaleDateString()}</td>
                 <td><button id="mark-task-as-complete" class="mark-as-complete-button">Complete</button>${completed}</td>
-                <td>${dateComplete}</td>
+                <td>${dateComplete}<button class="delete-task-button">Delete</button></td>
                 <td>${task.notes}</td>
                 
                 `
         )
     }
-}
+} 
 
 function submitTask() {
     let taskToSend = {
@@ -108,4 +108,22 @@ function emptyInputs() {
     $('#task-priority').val('');
     $('#due-date-in').val('');
     $('#notes-in').val('');
+}
+
+function deleteTask() {
+    let tr = $(this).parents('tr');
+    let taskId = tr.data('task-item-id');
+    console.log('task id is', taskId);
+
+    $.ajax({
+        url: '/todo-list/' + taskId,
+        method: 'DELETE'
+    })
+        .then(() => {
+            console.log('DELETE task successful');
+            getTasks()
+        })
+        .catch((err) => {
+            console.log(`DELETE tasks failed ${err}`)
+        })
 }
