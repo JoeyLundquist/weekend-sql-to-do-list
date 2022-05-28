@@ -62,7 +62,27 @@ taskListRouter.post('/', (req, res) => {
 })
 
 
+taskListRouter.delete('/:id', (req, res) => {
+    let taskId = req.params.id;
+    console.log(`tasks id Is ${taskId}`);
 
+    const sqlQuery = `
+        DELETE FROM to_do_list
+        WHERE id = $1;
+    `
+    const sqlParams = [
+        taskId
+    ];
+
+    pool.query(sqlQuery, sqlParams)
+    .then(() => {
+        res.sendStatus(204);
+    })
+    .catch((err) => {
+        console.log(`DELETE didnt work ${err}`)
+        res.sendStatus(500);
+    })
+})
 
 
 
