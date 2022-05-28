@@ -10,6 +10,51 @@
     <link rel="stylesheet" href="./style/style.css" type="text/css">
 </head>
 <body>
-    
+    <h1>Good ole' To-Do List!!</h1>
+
+    <div class="new-task-input">
+        <!-- Category -->
+        <label for="category-input">Category</label><br>
+        <input type="text" id="category-input" placeholder="Category Name"><br>
+       <!-- Owner -->
+        <label for="owner-name-in">Owner</label><br>
+        <input type="text" id="owner-name-in" placeholder="Owner Name"><br>
+        <!-- Task name -->
+        <label for="task-name-in">Task</label><br>
+        <input type="text" id="task-name-in" placeholder="Task Name"><br>
+        <!-- Priority -->
+        <label for="task-priority">Priority</label><br>
+        <select name="priority" id="task-priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select><br>
+        <!-- Due Date -->
+        <label for="due-date">Due Date</label><br>
+        <input type="date" name="due-date"> <br>
+       <!-- Notes -->
+        <label for="notes-in">Notes</label><br>
+        <input type="text" id="notes-in" placeholder="Notes go here">
+    </div>
+
+    <div id="task-list-div">
+       <table class="task-list-table">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Owner</th>
+                    <th>Task</th>
+                    <th>Priority</th>
+                    <th>Due Date</th>
+                    <th>Date Created</th>
+                    <th>Completed</th>
+                    <th>Date Completed</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+       </table>
+    </div>
+
+
 </body>
 </html>
