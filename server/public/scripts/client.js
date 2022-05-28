@@ -3,12 +3,15 @@ $(readyNow)
 function readyNow() {
     console.log('js')
     getTasks();
+    setUpClickListeners();
+}
+
+function setUpClickListeners() {
+    $('#submit-button').on('click', submitTask)
 }
 
 function getTasks() {
     console.log('In GET tasks')
-
-
     $.ajax({
         url:'/todo-list',
         method: 'GET'
@@ -32,6 +35,8 @@ function renderTaskList(list) {
         let dateComplete;
         let dateCreated = new Date(task.dateCreated);
         let completed;
+        let project;
+        let category;
         if(task.inProgress){
             completed = 'No'
         }
@@ -46,9 +51,17 @@ function renderTaskList(list) {
             dateComplete = new Date(task.dateCompleted).toLocaleDateString()
         }
 
+        if(task.project === null) {
+            project = ''
+        }
+        else {
+            project = task.project
+        }
+
         el.append(
             `<tr data-task-item-id="${task.id}">
                 <td>${task.category}</td>
+                <td>${project}</td>
                 <td>${task.task}</td>
                 <td>${task.priority}</td>
                 <td>${dueDate.toLocaleDateString()}</td>
@@ -60,4 +73,39 @@ function renderTaskList(list) {
                 `
         )
     }
+}
+
+function submitTask() {
+    let taskToSend = {
+        category: $('#category-input').val(),
+        project: $('#project-input').val(),
+        task: $('#task-name-in').val(),
+        priority: $('#task-priority').val(),
+        dueDate: $('#due-date-in').val(),
+        notes: $('#notes-in').val()
+    }
+
+    $.ajax({
+        url:'/todo-list',
+        method: 'POST',
+        data: taskToSend
+    })
+    .then((response) => {
+        console.log('POST success', response);
+        emptyInputs();
+        getTasks();
+    })
+    .catch((err) => {
+        alert('Failed to add task');
+        console.log('POST failed', err)
+    });
+}
+
+function emptyInputs() {
+    $('#category-input').val('');
+    $('#project-input').val('');
+    $('#task-name-in').val('');
+    $('#task-priority').val('');
+    $('#due-date-in').val('');
+    $('#notes-in').val('');
 }
