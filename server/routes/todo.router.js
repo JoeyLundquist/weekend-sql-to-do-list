@@ -24,6 +24,45 @@ taskListRouter.get('/', (req, res) => {
 
 })
 
+taskListRouter.post('/', (req, res) => {
+    let newTask = req.body;
+    let category = newTask.category
+    if(newTask.category === ''){
+        category = 'Personal'
+    }
+    console.log('new task', newTask)
+
+    const sqlQuery = `
+        INSERT INTO to_do_list
+        ("category", "project", "task", "priority", "dueDate", "notes")
+        VALUES
+        ($1, $2, $3, $4, $5, $6);
+    `
+
+    const sqlParams = [
+        category,
+        newTask.project,
+        newTask.task,
+        newTask.priority,
+        newTask.dueDate,
+        newTask.notes,
+    ];
+
+    pool.query(sqlQuery, sqlParams)
+        .then((dbRes) => {
+            res.sendStatus(201);
+        })
+        .catch((err) => {
+            console.log('POST to DB failed', err);
+            res.sendStatus(500)
+        })
+
+
+
+})
+
+
+
 
 
 
