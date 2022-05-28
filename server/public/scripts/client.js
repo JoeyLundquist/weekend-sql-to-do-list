@@ -7,8 +7,9 @@ function readyNow() {
 }
 
 function setUpClickListeners() {
-    $('#submit-button').on('click', submitTask)
-    $(document).on('click', '.delete-task-button', deleteTask)
+    $('#submit-button').on('click', submitTask);
+    $(document).on('click', '.delete-task-button', deleteTask);
+    $(document).on('click', '.mark-as-complete-button', updateTask)
 }
 
 function getTasks() {
@@ -66,7 +67,7 @@ function renderTaskList(list) {
                 <td>${task.priority}</td>
                 <td>${dueDate.toLocaleDateString()}</td>
                 <td>${dateCreated.toLocaleDateString()}</td>
-                <td><button id="mark-task-as-complete" class="mark-as-complete-button">Complete</button>${completed}</td>
+                <td data-task-complete="${task.inProgress}"><button class="mark-as-complete-button">Complete</button>${completed}</td>
                 <td>${dateComplete}<button class="delete-task-button">Delete</button></td>
                 <td>${task.notes}</td>
                 
@@ -128,3 +129,28 @@ function deleteTask() {
         })
 }
 
+function updateTask() {
+    let taskId = $(this).parents('tr').data('task-item-id')
+    console.log('this is the task id', taskId)
+
+    let inProgressData = $(this).parent().data('task-complete')
+    console.log('This is in progress data', inProgressData)
+
+    let inProgress = {
+        inProgress: inProgressData
+    }
+
+
+    $.ajax({
+        url: '/todo-list/' + taskId,
+        method: 'PUT',
+        data: inProgress
+    })
+    .then(() => {
+        console.log('PUT success');
+        getTasks();
+    })
+    .catch((err) => {
+        console.log('PUT failed', err)
+    })
+}

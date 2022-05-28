@@ -84,7 +84,43 @@ taskListRouter.delete('/:id', (req, res) => {
     })
 })
 
+taskListRouter.put('/:id', (req, res) => {
+    let taskId = req.params.id;
+    console.log('task id should be', taskId);
+    let inProgress = req.body.inProgress;
+    console.log('inProgress status', inProgress);
+    let dateCompleted = new Date().toLocaleDateString().toString();
+    console.log('new date?', dateCompleted)
 
+    if(inProgress){
+        inProgress = false;
+    }
+    else {
+        inProgress = true;
+    }
+
+    let sqlQuery = `
+        UPDATE to_do_list
+        SET "inProgress" = $1,
+         "dateCompleted" = $2
+        WHERE id = $3;
+    `
+
+    let sqlParams = [
+        inProgress, 
+        dateCompleted,
+        taskId
+    ];
+
+    pool.query(sqlQuery, sqlParams)
+        .then(() => {
+            res.sendStatus(200)
+        })
+        .catch((err) => {
+            console.log('PUT failed', err);
+            res.sendStatus(500);
+        })
+})
 
 
 module.exports = taskListRouter;
