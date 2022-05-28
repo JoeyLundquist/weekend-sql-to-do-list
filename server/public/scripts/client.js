@@ -133,8 +133,12 @@ function updateTask() {
     let taskId = $(this).parents('tr').data('task-item-id')
     console.log('this is the task id', taskId)
 
-    let inProgress = $(this).parent().data('task-complete')
-    console.log('This is in progress data', inProgress)
+    let inProgressData = $(this).parent().data('task-complete')
+    console.log('This is in progress data', inProgressData)
+
+    let inProgress = {
+        inProgress: inProgressData
+    }
 
 
     $.ajax({
