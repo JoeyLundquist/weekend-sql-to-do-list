@@ -2,7 +2,7 @@ $(readyNow)
 
 function readyNow() {
     console.log('js')
-
+    getTasks();
 }
 
 function getTasks() {
@@ -25,5 +25,5 @@ function getTasks() {
 
 
 function renderTaskList(task) {
-    
+
 }
