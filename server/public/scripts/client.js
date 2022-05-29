@@ -10,6 +10,20 @@ function setUpClickListeners() {
     $('#submit-button').on('click', submitTask);
     $(document).on('click', '.delete-task-button', deleteTask);
     $(document).on('click', '.mark-as-complete-button', updateTask)
+    $('#add-task-button').on('click', toggleInputDisplay)
+}
+let invisible = true;
+
+function toggleInputDisplay() {
+   
+    if(invisible) {
+        $('#input-container').css('display', 'block');
+        invisible = false
+    }
+    else {
+        $('#input-container').css('display', 'none');
+        invisible = true
+    }
 }
 
 function getTasks() {
@@ -93,6 +107,7 @@ function submitTask() {
     })
     .then((response) => {
         console.log('POST success', response);
+        toggleInputDisplay();
         emptyInputs();
         getTasks();
     })

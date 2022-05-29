@@ -19,18 +19,15 @@ td, th {
     float: right;
   }
 
-  .task-inputs {
-    width: 150px;
+  
+
+
+
+  #add-task-button {
+    width: 75px;
+    height: 75px;
   }
 
-  .form-control {
-    margin:1;
-  }
-
-  .form-floating {
-    margin: 0px;
-  }
-
-  .form-select {
-    width: 100px;
+  #input-container {
+    display: none;
   }
