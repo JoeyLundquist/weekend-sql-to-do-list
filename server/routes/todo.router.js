@@ -62,7 +62,7 @@ taskListRouter.post('/', (req, res) => {
 })
 
 
-taskListRouter.delete('/:id', (req, res) => {
+taskListRouter.delete(`/:id`, (req, res) => {
     let taskId = req.params.id;
     console.log(`tasks id Is ${taskId}`);
 

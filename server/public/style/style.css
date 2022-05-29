@@ -18,3 +18,16 @@ td, th {
   .delete-task-button {
     float: right;
   }
+
+  
+
+
+
+  #add-task-button {
+    width: 75px;
+    height: 75px;
+  }
+
+  #input-container {
+    display: none;
+  }
