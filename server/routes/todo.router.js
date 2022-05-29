@@ -70,7 +70,7 @@ taskListRouter.get('/', (req, res) => {
         //Once DB sends response it sends the task list to the server to send to client
         .then((dbRes) => {
             console.log('success on GET', dbRes.rows)
-            res.send(dbRes.rows)
+            res.send(dbRes.rows.reverse())
         })
         .catch((err) => {
             console.log('Failed to GET', err)
