@@ -2,6 +2,53 @@ const express = require('express');
 const pool = require('../module/pool')
 const taskListRouter = express.Router();
 
+taskListRouter.post('/sort/:sort', (req, res) => {
+    let sortBy = req.params.sort;
+    console.log('this is my params', sortBy)
+    let sqlQuery;
+    switch(sortBy){
+        case 'category':
+            sqlQuery = `
+                SELECT * FROM to_do_list
+                ORDER BY category ASC;
+            `;
+            break;
+        case 'project':
+            sqlQuery = `
+            SELECT * FROM to_do_list
+            ORDER BY project ASC;
+        `;
+            break;
+         case 'priority':
+            sqlQuery = `
+            SELECT * FROM to_do_list
+            ORDER BY priority ASC;
+        `;
+            break;
+         case 'dueDate':
+            sqlQuery = `
+            SELECT * FROM to_do_list
+            ORDER BY "dueDate" ASC;
+        `;
+            break;
+         case 'dateCompleted':
+            sqlQuery = `
+            SELECT * FROM to_do_list
+            ORDER BY "dateCompleted" ASC;
+        `;
+            break;
+        default:
+            console.log('something broke')
+    }
+    pool.query(sqlQuery)
+        .then((dbRes) => {
+            res.send(dbRes.rows)
+        })
+        .catch((err) => {
+            console.log('sort failed', err)
+        })
+
+})
 
 taskListRouter.get('/', (req, res) => {
     const sqlQuery = `
@@ -17,11 +64,6 @@ taskListRouter.get('/', (req, res) => {
         .catch((err) => {
             console.log('Failed to GET', err)
         })
-
-
-
-
-
 })
 
 taskListRouter.post('/', (req, res) => {
@@ -94,9 +136,6 @@ taskListRouter.put('/:id', (req, res) => {
 
     if(inProgress){
         inProgress = false;
-    }
-    else {
-        inProgress = true;
     }
 
     let sqlQuery = `

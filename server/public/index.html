@@ -14,70 +14,106 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <h1>Good ole' To-Do List!!</h1>
     <div class="container">
-    <div class=" new-task-input w-75 p-3" id="input-container">
-        <!-- Category -->
-        <div class="form-floating w-75 mb-2">
-            <input type="text" class="form-control input-sm task-inputs" id="category-input" placeholder="Category Name">
-            <label for="category-input">Category</label>
+        <h1 class="text-center display-2">Good ole' To-Do List!!</h1>
+    
+        <div class=" new-task-input w-75 p-3" id="input-container">
+            <!-- Category -->
+            <div class="form-floating w-75 mb-2">
+                <input type="text" class="form-control input-sm task-inputs" id="category-input" placeholder="Category Name">
+                <label for="category-input">Category</label>
+            </div>
+            <!-- Project name -->
+            <div class="form-floating w-75 mb-2">
+                <input type="text" id="project-input" class="form-control form-control-sm task-inputs" placeholder="Project Name">
+                <label for="project-input">Project</label>
+            </div>
+            <!-- Task name -->
+            <div class="form-floating w-75 mb-2">
+                <input type="text" class="form-control form-control-sm task-inputs" id="task-name-in" placeholder="Task Name">
+                <label for="task-name-in">Task</label>
+            </div>
+            <!-- Priority -->
+            <!-- <div class="d-inline"> -->
+                <label for="task-priority">Priority</label><br>
+                <select class="form-select w-50 form-select-sm" name="priority" value="High" id="task-priority">
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            <!-- </div> -->
+            <!-- Due Date -->
+            <label for="due-date">Due Date</label><br>
+            <input type="date" id="due-date-in" name="due-date"> <br>
+        <!-- Notes -->
+        <div class="form-floating mt-3">
+                <textarea id="notes-in" class="form-control w-100" aria-label="With textarea"></textarea>
+                <label for="notes-in">Notes</label><br>
+            </div>
+            <button type="button" class="btn btn-success" id="submit-button">Create Task</button>
         </div>
-        <!-- Project name -->
-        <div class="form-floating w-75 mb-2">
-            <input type="text" id="project-input" class="form-control form-control-sm task-inputs" placeholder="Project Name">
-            <label for="project-input">Project</label>
-        </div>
-        <!-- Task name -->
-        <div class="form-floating w-75 mb-2">
-            <input type="text" class="form-control form-control-sm task-inputs" id="task-name-in" placeholder="Task Name">
-            <label for="task-name-in">Task</label>
-        </div>
-        <!-- Priority -->
-        <!-- <div class="d-inline"> -->
-            <label for="task-priority">Priority</label><br>
-            <select class="form-select w-75 form-select-sm" name="priority" value="High" id="task-priority">
-                <option value="High">High</option>
-                <option value="Medium">Medium</option>
-                <option value="Low">Low</option>
-            </select>
-        <!-- </div> -->
-        <!-- Due Date -->
-        <label for="due-date">Due Date</label><br>
-        <input type="date" id="due-date-in" name="due-date"> <br>
-       <!-- Notes -->
-       <div class="form-floating mt-3">
-            <textarea id="notes-in" class="form-control w-100" aria-label="With textarea"></textarea>
-            <label for="notes-in">Notes</label><br>
-        </div>
-        <button type="button" class="btn btn-success" id="submit-button">Create Task</button>
-    </div>
 
-    <button  class="btn btn-primary active" id="add-task-button">   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-      </svg></button>
-   
- 
+        <button  class="btn btn-primary active " id="add-task-button">   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+        </svg></button>
+    
+    
 
-    <div class="container" id="task-list-div">
-       <table class="task-list-table">
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Project</th>
-                    <th>Task</th>
-                    <th>Priority</th>
-                    <th>Due Date</th>
-                    <th>Date Created</th>
-                    <th>Completed</th>
-                    <th>Date Completed</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody id="task-list-table-body">
+        <div class="container" id="task-list-div">
+        <table class="task-list-table">
+                <thead>
+                    <tr>
+                        <th data-sorting="category" id="category-header">
+                                Category
+                                    <p class="table-sorting">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+                                          </svg>
+                                    </p>
+                                </th>
+                        <th data-sorting="project">
+                            Project
+                                <p class="table-sorting">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+                                      </svg>
+                                </p>
+                        </th>
+                        <th>Task</th>
+                        <th data-sorting="priority">
+                            Priority
+                                <p class="table-sorting">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+                                      </svg>
+                                </p>
+                        </th>
+                        <th data-sorting="dueDate">
+                            Due Date
+                                <p class="table-sorting">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+                                      </svg>
+                                </p>
+                        </th>
+                        <th>Date Created</th>
+                        <th>Completed</th>
+                        <th data-sorting="dateCompleted">
+                            Date Completed
+                            <p class="table-sorting">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+                                  </svg>
+                            </p>
+                        </th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="task-list-table-body">
 
-            </tbody>
-       </table>
-    </div>
+                </tbody>
+        </table>
+        </div>
 </div>
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
