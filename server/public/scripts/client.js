@@ -131,17 +131,42 @@ function deleteTask() {
     let taskId = tr.data('task-item-id');
     console.log('task id is', taskId);
 
-    $.ajax({
-        url: `/todo-list/${taskId}`,
-        method: 'DELETE',
-    })
-        .then(() => {
-            console.log('DELETE task successful');
-            getTasks()
+    Swal.fire({
+        title: 'Are you sure you want to delete this task',
+        text: "You will not be able to retrieve this task!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire(
+            'Deleted!',
+            'Your task has been deleted.',
+            'success'
+          )
+        $.ajax({
+            url: `/todo-list/${taskId}`,
+            method: 'DELETE',
         })
-        .catch((err) => {
-            console.log(`DELETE tasks failed ${err}`)
-        })
+            .then(() => {
+                console.log('DELETE task successful');
+                getTasks()
+            })
+            .catch((err) => {
+                console.log(`DELETE tasks failed ${err}`)
+            })
+        }
+        else{
+            Swal.fire('Your task has been saved')
+        }
+    });
+    
+                
+
+ 
 }
 
 function updateTask() {
