@@ -7,6 +7,8 @@
     <title>To-do List</title>
     <script src="./vendor/jqueryUC-3.6.0.js"></script>
     <script src="./scripts/client.js"></script>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="./style/style.css" type="text/css">
 </head>
 <body>
@@ -14,28 +16,36 @@
 
     <div class="new-task-input">
         <!-- Category -->
-        <label for="category-input">Category</label><br>
-        <input type="text" id="category-input" placeholder="Category Name"><br>
+        <div class="form-floating mb-0">
+            <input type="text" class="form-control input-sm task-inputs" id="category-input" placeholder="Category Name">
+            <label for="category-input">Category</label><br>
+        </div>
         <!-- Project name -->
-        <label for="project-input">Project</label><br>
-        <input type="text" id="project-input" placeholder="Project Name"><br>
+        <div class="form-floating mb-0">
+            <input type="text" id="project-input" class="form-control form-control-sm task-inputs" placeholder="Project Name"><br>
+            <label for="project-input">Project</label><br>
+        </div>
         <!-- Task name -->
-        <label for="task-name-in">Task</label><br>
-        <input type="text" id="task-name-in" placeholder="Task Name"><br>
+        <div class="form-floating mb-0">
+            <input type="text" class="form-control form-control-sm task-inputs" id="task-name-in" placeholder="Task Name"><br>
+            <label for="task-name-in">Task</label><br>
+        </div>
         <!-- Priority -->
         <label for="task-priority">Priority</label><br>
-        <select name="priority" id="task-priority">
+        <select class="form-select form-select-sm" name="priority" id="task-priority">
             <option value="High">High</option>
             <option value="Medium">Medium</option>
             <option value="Low">Low</option>
         </select><br>
         <!-- Due Date -->
         <label for="due-date">Due Date</label><br>
-        <input type="date" id="due-date-in" name="due-date"> <br>
+        <input type="date"  value ="2022-12-31" id="due-date-in" name="due-date"> <br>
        <!-- Notes -->
-        <label for="notes-in">Notes</label><br>
-        <input type="text" id="notes-in" placeholder="Notes go here">
-        <input type="submit" value="Submit Task" id="submit-button">
+       <div class="form-floating mb-0">
+            <textarea class="form-control" aria-label="With textarea"></textarea>
+            <label for="notes-in">Notes</label><br>
+        </div>
+        <button type="button" class="btn btn-success" id="submit-button">Create Task</button>
     </div>
 
     <div id="task-list-div">
@@ -59,6 +69,7 @@
        </table>
     </div>
 
-
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 </body>
 </html>

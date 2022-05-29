@@ -67,8 +67,8 @@ function renderTaskList(list) {
                 <td>${task.priority}</td>
                 <td>${dueDate.toLocaleDateString()}</td>
                 <td>${dateCreated.toLocaleDateString()}</td>
-                <td data-task-complete="${task.inProgress}"><button class="mark-as-complete-button">Complete</button>${completed}</td>
-                <td>${dateComplete}<button class="delete-task-button">Delete</button></td>
+                <td data-task-complete="${task.inProgress}"><button class="btn btn-success mark-as-complete-button">Complete</button>${completed}</td>
+                <td>${dateComplete}<button class="btn btn-danger delete-task-button">Delete</button></td>
                 <td>${task.notes}</td>
                 
                 `
@@ -117,8 +117,8 @@ function deleteTask() {
     console.log('task id is', taskId);
 
     $.ajax({
-        url: '/todo-list/' + taskId,
-        method: 'DELETE'
+        url: `/todo-list/${taskId}`,
+        method: 'DELETE',
     })
         .then(() => {
             console.log('DELETE task successful');
@@ -135,6 +135,8 @@ function updateTask() {
 
     let inProgressData = $(this).parent().data('task-complete')
     console.log('This is in progress data', inProgressData)
+
+    
 
     let inProgress = {
         inProgress: inProgressData

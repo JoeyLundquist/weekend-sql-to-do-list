@@ -18,3 +18,19 @@ td, th {
   .delete-task-button {
     float: right;
   }
+
+  .task-inputs {
+    width: 150px;
+  }
+
+  .form-control {
+    margin:1;
+  }
+
+  .form-floating {
+    margin: 0px;
+  }
+
+  .form-select {
+    width: 100px;
+  }
