@@ -11,6 +11,27 @@ function setUpClickListeners() {
     $(document).on('click', '.delete-task-button', deleteTask);
     $(document).on('click', '.mark-as-complete-button', updateTask)
     $('#add-task-button').on('click', toggleInputDisplay)
+    $('.table-sorting').on('click', toggleTableSorting)
+}
+
+function toggleTableSorting() {
+    let columnSort = $(this).parent().data('sorting')
+    console.log(columnSort);
+        
+        $.ajax({
+            url: '/todo-list/sort/' + columnSort,
+            method: 'POST',
+            data: columnSort
+        })
+        .then((response) => {
+            console.log('success on sort', response)
+            renderTaskList(response);
+        })
+        .catch((err) => {
+            console.log('sort failed', err)
+        })
+    
+
 }
 let invisible = true;
 
@@ -50,13 +71,9 @@ function renderTaskList(list) {
         let dueDate = new Date(task.dueDate);
         let dateComplete;
         let dateCreated = new Date(task.dateCreated);
-        let completed;
         let project;
-        if(task.inProgress){
-            completed = 'No'
-        }
-        else { 
-            completed = 'Yes'
+        if(task.notes === null){
+            task.notes = ''
         }
 
         if(task.dateCompleted === null){ 
@@ -73,20 +90,47 @@ function renderTaskList(list) {
             project = task.project
         }
 
-        el.append(
-            `<tr data-task-item-id="${task.id}">
-                <td>${task.category}</td>
-                <td>${project}</td>
-                <td>${task.task}</td>
-                <td>${task.priority}</td>
-                <td>${dueDate.toLocaleDateString()}</td>
-                <td>${dateCreated.toLocaleDateString()}</td>
-                <td data-task-complete="${task.inProgress}"><button class="btn btn-success mark-as-complete-button">Complete</button>${completed}</td>
-                <td>${dateComplete}<button class="btn btn-danger delete-task-button">Delete</button></td>
-                <td>${task.notes}</td>
-                
-                `
-        )
+        let completed;
+
+        if(task.inProgress){
+            completed = `
+            <tr data-task-item-id="${task.id}">
+            <td>${task.category}</td>
+            <td>${project}</td>
+            <td>${task.task}</td>
+            <td>${task.priority}</td>
+            <td>${dueDate.toLocaleDateString()}</td>
+            <td>${dateCreated.toLocaleDateString()}</td>
+            <td data-task-complete="${task.inProgress}">
+                <button class="btn btn-success mark-as-complete-button">Complete</button>
+                <div class="is-in-progress-circle"></div>   
+            </td>
+            <td>${dateComplete}<button class="btn btn-danger delete-task-button">Delete</button></td>
+            <td>${task.notes}</td>
+            
+            `
+        }
+        else {
+            completed = `
+            <tr class="task-is-complete" data-task-item-id="${task.id}">
+            <td>${task.category}</td>
+            <td>${project}</td>
+            <td>${task.task}</td>
+            <td>${task.priority}</td>
+            <td>${dueDate.toLocaleDateString()}</td>
+            <td>${dateCreated.toLocaleDateString()}</td>
+            <td data-task-complete="${task.inProgress}">
+                <button class="btn btn-success mark-as-complete-button" disabled>Complete</button>
+                <div class="is-completed-circle"></div>   
+            </td>
+            <td>${dateComplete}<button class="btn btn-danger delete-task-button">Delete</button></td>
+            <td>${task.notes}</td>
+            
+            `
+        }
+
+        el.append(completed)
+    
     }
 } 
 
@@ -135,10 +179,11 @@ function deleteTask() {
         title: 'Are you sure you want to delete this task',
         text: "You will not be able to retrieve this task!",
         icon: 'warning',
+        confirmButtonText: 'Yes, delete it!',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+      
       })
       .then((result) => {
         if (result.isConfirmed) {
