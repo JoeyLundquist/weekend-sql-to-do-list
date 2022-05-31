@@ -161,6 +161,13 @@ function submitTask() {
         dueDate: $('#due-date-in').val(),
         notes: $('#notes-in').val()
     }
+
+    if($('#task-name-in').val() === '' || $('#due-date-in').val() === ''){
+        alert('You need a task name, and due date.')
+        return false;
+    }
+
+
     //Sends HTTP POST request
     $.ajax({
         url:'/todo-list',
