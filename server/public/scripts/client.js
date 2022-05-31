@@ -64,6 +64,7 @@ function getTasks() {
     })
     .catch((err) => {
         console.log('Failed to GET', err)
+        alert('Unable to retrieve list');
     })
 
 }
@@ -160,6 +161,13 @@ function submitTask() {
         dueDate: $('#due-date-in').val(),
         notes: $('#notes-in').val()
     }
+
+    if($('#task-name-in').val() === '' || $('#due-date-in').val() === ''){
+        alert('You need a task name, and due date.')
+        return false;
+    }
+
+
     //Sends HTTP POST request
     $.ajax({
         url:'/todo-list',
@@ -222,6 +230,7 @@ function deleteTask() {
             })
             .catch((err) => {
                 console.log(`DELETE tasks failed ${err}`)
+                alert('Unable to Delete Task at this time')
             })
         }
         else{
@@ -261,5 +270,6 @@ function updateTask() {
     })
     .catch((err) => {
         console.log('PUT failed', err)
+        alert('Unable to Mark as complete at this time')
     })
 }
