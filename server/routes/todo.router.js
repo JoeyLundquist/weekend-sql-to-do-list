@@ -64,6 +64,7 @@ taskListRouter.get('/', (req, res) => {
     const sqlQuery = `
         SELECT * FROM to_do_list
         ORDER BY category ASC
+        LIMIT 100;
     `
     //Sends the sqlQuery to DB 
     pool.query(sqlQuery)

@@ -1,3 +1,4 @@
+-- Recreate the DB
 CREATE TABLE "to_do_list"(
 "id" SERIAL PRIMARY KEY,
 "category" VARCHAR(50) DEFAULT 'Personal',
@@ -10,7 +11,7 @@ CREATE TABLE "to_do_list"(
 "dateCompleted" DATE,
 "notes" VARCHAR(2048)
 );
-
+--Some fake sample data
 INSERT INTO to_do_list
 ("category", "project", "task", "priority", "inProgress", "dueDate", "notes")
 VALUES
@@ -29,4 +30,4 @@ VALUES
 
 
 
-SELECT * FROM to_do_list;
+

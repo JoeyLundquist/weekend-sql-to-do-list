@@ -64,6 +64,7 @@ function getTasks() {
     })
     .catch((err) => {
         console.log('Failed to GET', err)
+        alert('Unable to retrieve list');
     })
 
 }
@@ -222,6 +223,7 @@ function deleteTask() {
             })
             .catch((err) => {
                 console.log(`DELETE tasks failed ${err}`)
+                alert('Unable to Delete Task at this time')
             })
         }
         else{
@@ -261,5 +263,6 @@ function updateTask() {
     })
     .catch((err) => {
         console.log('PUT failed', err)
+        alert('Unable to Mark as complete at this time')
     })
 }
