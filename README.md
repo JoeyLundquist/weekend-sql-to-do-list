@@ -12,8 +12,8 @@ This app tracks with category, project, task name, priority, due date, date crea
 To see fully functional site please visit: [SQL TODO APP](https://lit-headland-90246.herokuapp.com/)
 
 ## ScreenShot
-[Screen Shot of task list](./tasklist.png)
-[Screen Shot of task input](./taskinputs.png)
+![Screen Shot of task list](./tasklist.png | width=100) 
+![Screen Shot of task input](./taskinputs.png)
 
 ### Prerequisites
 
