@@ -45,6 +45,8 @@ Fork and clone the repo
 
 ## Acknowledgement
 Thanks to [Prime Digital Academy](www.primeacademy.io) who equipped and helped me to make this application a reality.
+Having a class who's staff cares as much about my success really give me the drive to put in 100% and to be excited about
+the feedback to improve my code!
 
 ## Support
 If you have suggestions or issues, please email me at [joeylundquist91@gmail.com]
